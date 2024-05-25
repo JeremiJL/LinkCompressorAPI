@@ -1,10 +1,10 @@
-package com.example.linkcompressor;
+package jeremi.linkcompresser;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LinkCompressorApplicationTests {
+class LinkCompresserApplicationTests {
 
     @Test
     void contextLoads() {
