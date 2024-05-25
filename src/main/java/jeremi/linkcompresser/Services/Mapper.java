@@ -9,15 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class DTOtoEntityMapper {
+public class Mapper {
 
     public Link map(LinkDTO dto){
-
-        // test
-        System.out.println(dto.getLinkId());
-        System.out.println(dto.getLink());
-        System.out.println(dto.getPassword());
-
         Link link = new Link();
         link.setLink(dto.getLink());
         link.setPassword(dto.getPassword());
@@ -34,10 +28,20 @@ public class DTOtoEntityMapper {
                 redirections.add(redirection);
             }
         }
-
         link.setRedirections(redirections);
 
         return link;
+    }
+
+    public LinkDTO map(Link link){
+        LinkDTO dto = new LinkDTO();
+        dto.setLinkId(link.getLinkId());
+        dto.setLink(link.getLink());
+        dto.setPassword(link.getPassword());
+        dto.setVisits(link.getVisitCounter());
+        dto.setRedirections(link.getRedirections().stream().map(Redirection::getRedirection).toList());
+
+        return dto;
     }
 
 }
