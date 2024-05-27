@@ -1,5 +1,6 @@
 package jeremi.linkcompresser.Models;
 
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,8 +10,16 @@ public class Redirection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String redirection;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private Link link;
+
+    public Redirection(String redirection, Link link) {
+        this.redirection = redirection;
+        this.link = link;
+    }
+
+    public Redirection() {
+    }
 
     public String getRedirection() {
         return redirection;
@@ -35,4 +44,6 @@ public class Redirection {
     public Integer getId() {
         return id;
     }
+
+
 }

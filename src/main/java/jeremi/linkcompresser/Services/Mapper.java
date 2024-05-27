@@ -1,7 +1,8 @@
 package jeremi.linkcompresser.Services;
 
 import jeremi.linkcompresser.Models.Link;
-import jeremi.linkcompresser.Models.LinkDTO;
+import jeremi.linkcompresser.Models.LinkInputDTO;
+import jeremi.linkcompresser.Models.LinkOutPutDTO;
 import jeremi.linkcompresser.Models.Redirection;
 import org.springframework.stereotype.Service;
 
@@ -11,16 +12,16 @@ import java.util.List;
 @Service
 public class Mapper {
 
-    public Link map(LinkDTO dto){
+    public Link map(LinkInputDTO dto){
         Link link = new Link();
-        link.setLink(dto.getLink());
+        link.setTargetURL(dto.getTargetURL());
         link.setPassword(dto.getPassword());
         link.setVisitCounter(dto.getVisits());
 
         // create redirection objects
         List<Redirection> redirections = new ArrayList<>();
-        if (dto.getRedirections() != null) {
-            for (String reURL : dto.getRedirections()) {
+        if (dto.getRedirectionsURL() != null) {
+            for (String reURL : dto.getRedirectionsURL()) {
                 Redirection redirection = new Redirection();
                 redirection.setLink(link);
                 redirection.setRedirection(reURL);
@@ -28,18 +29,17 @@ public class Mapper {
                 redirections.add(redirection);
             }
         }
-        link.setRedirections(redirections);
+        link.setRedirectionsURL(redirections);
 
         return link;
     }
 
-    public LinkDTO map(Link link){
-        LinkDTO dto = new LinkDTO();
-        dto.setLinkId(link.getLinkId());
-        dto.setLink(link.getLink());
-        dto.setPassword(link.getPassword());
+    public LinkOutPutDTO map(Link link){
+        LinkOutPutDTO dto = new LinkOutPutDTO();
+        dto.setTargetURL(link.getTargetURL());
+        dto.setRedirectionsURL(link.getRedirectionsURL().stream().map(Redirection::getRedirection).toList());
         dto.setVisits(link.getVisitCounter());
-        dto.setRedirections(link.getRedirections().stream().map(Redirection::getRedirection).toList());
+        dto.setLinkId(link.getLinkId());
 
         return dto;
     }

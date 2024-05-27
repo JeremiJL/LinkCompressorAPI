@@ -11,11 +11,11 @@ public class Link {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer linkId;
-    private String link;
+    private String targetURL;
     private int visitCounter;
     private String password;
-    @OneToMany(mappedBy = "link", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private List<Redirection> redirections = new ArrayList<>();
+    @OneToMany(mappedBy = "link", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Redirection> redirectionsURL = new ArrayList<>();
 
     public Integer getLinkId() {
         return linkId;
@@ -25,12 +25,12 @@ public class Link {
         this.linkId = linkId;
     }
 
-    public String getLink() {
-        return link;
+    public String getTargetURL() {
+        return targetURL;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setTargetURL(String link) {
+        this.targetURL = link;
     }
 
     public int getVisitCounter() {
@@ -49,12 +49,12 @@ public class Link {
         this.password = password;
     }
 
-    public List<Redirection> getRedirections() {
-        return redirections;
+    public List<Redirection> getRedirectionsURL() {
+        return redirectionsURL;
     }
 
-    public void setRedirections(List<Redirection> redirections) {
-        this.redirections = redirections;
+    public void setRedirectionsURL(List<Redirection> redirections) {
+        this.redirectionsURL = redirections;
     }
 
 }
