@@ -24,7 +24,7 @@ public class Mapper {
             for (String reURL : dto.getRedirectionsURL()) {
                 Redirection redirection = new Redirection();
                 redirection.setLink(link);
-                redirection.setRedirection(reURL);
+                redirection.setRedirectionURL(reURL);
 
                 redirections.add(redirection);
             }
@@ -37,7 +37,7 @@ public class Mapper {
     public LinkOutPutDTO map(Link link){
         LinkOutPutDTO dto = new LinkOutPutDTO();
         dto.setTargetURL(link.getTargetURL());
-        dto.setRedirectionsURL(link.getRedirectionsURL().stream().map(Redirection::getRedirection).toList());
+        dto.setRedirectionsURL(link.getRedirectionsURL().stream().map(Redirection::getRedirectionURL).toList());
         dto.setVisits(link.getVisitCounter());
         dto.setLinkId(link.getLinkId());
 

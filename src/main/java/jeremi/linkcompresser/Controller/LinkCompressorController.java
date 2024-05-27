@@ -8,6 +8,7 @@ import jeremi.linkcompresser.Models.LinkInputDTO;
 import jeremi.linkcompresser.Models.LinkOutPutDTO;
 import jeremi.linkcompresser.Models.PasswordDTO;
 import jeremi.linkcompresser.Services.LinkService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,10 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Controller
-@RequestMapping("/api/v1/links")
+@RestController
+@RequestMapping(path="/api/v1/links",
+        produces = {MediaType.APPLICATION_JSON_VALUE,
+        MediaType.APPLICATION_XML_VALUE})
 public class LinkCompressorController {
 
     private LinkService linkService;
@@ -74,6 +77,7 @@ public class LinkCompressorController {
     public ResponseEntity<LinkOutPutDTO> updateLink(@PathVariable int id, @RequestBody LinkInputDTO linkDTO) {
         return updateLink(id,linkDTO,null);
     }
+
 
 
 

@@ -96,4 +96,12 @@ public class LinkService {
         link.getRedirectionsURL().add(red);
     }
 
+    public void incrementVisitCounter(String targetURL){
+        List<Link> links = linkRepository.findAllByTargetURL(targetURL);
+        for (Link l : links){
+            l.setVisitCounter(l.getVisitCounter() + 1);
+        }
+        linkRepository.saveAll(links);
+    }
+
 }
